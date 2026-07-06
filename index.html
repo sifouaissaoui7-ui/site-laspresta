@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LASPRESTA | Prestations Multi-Services Toulouse</title>
+    <style>
+        :root { 
+            --blue-lm: #1e3a8a; 
+            --dark-lm: #0f172a; 
+            --light-bg: #F4F6F8; 
+            --text-color: #333333; 
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { color: var(--text-color); line-height: 1.6; background-color: var(--light-bg); padding-bottom: 60px; }
+        
+        header { background-color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--dark-lm); text-decoration: none; }
+        .logo span { color: var(--blue-lm); }
+        nav a { text-decoration: none; color: var(--dark-lm); margin-left: 20px; font-weight: 600; }
+        nav a:hover { color: var(--blue-lm); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .page-title { text-align: center; font-size: 2.1rem; color: var(--dark-lm); margin-bottom: 10px; }
+        .page-subtitle { text-align: center; color: #666; margin-bottom: 40px; font-size: 1.1rem; }
+
+        /* BANDEAU DE MISE EN VALEUR */
+        .featured-banner {
+            background: white;
+            border: 2px solid var(--blue-lm);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--blue-lm);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .featured-banner h2 {
+            color: var(--dark-lm);
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+        }
+        .featured-banner p {
+            color: #4a5568;
+            font-size: 1.05rem;
+        }
+
+        .sector-item {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .sector-header {
+            width: 100%;
+            background: white;
+            padding: 22px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: none;
+            cursor: pointer;
+        }
+        .sector-header h2 {
+            font-size: 1.4rem;
+            color: var(--dark-lm);
+            font-weight: 700;
+        }
+        .sector-icon {
+            font-size: 1.5rem;
+            color: var(--blue-lm);
+            transition: transform 0.3s;
+        }
+        .sector-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .sector-inner {
+            padding: 0 25px 25px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-top: 1px solid #EDF2F7;
+            padding-top: 20px;
+        }
+        @media (min-width: 650px) {
+            .sector-inner { flex-direction: row; }
+        }
+        .presta-img-box {
+            flex: 1;
+            min-width: 280px;
+            height: 200px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .presta-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .presta-info {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
+        .price-tag {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--blue-lm);
+            margin-bottom: 15px;
+        }
+        .expectations-box {
+            background: #F8FAFC;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--blue-lm);
+            margin-bottom: 20px;
+        }
+        .expectations-box ul { list-style: none; }
+        .expectations-box ul li { position: relative; padding-left: 18px; margin-bottom: 6px; color: #4A5568; }
+        .expectations-box ul li::before { content: "✓"; color: var(--blue-lm); position: absolute; left: 0; font-weight: bold; }
+        
+        .btn-wa {
+            background-color: white;
+            color: var(--blue-lm);
+            border: 2px solid var(--blue-lm);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-wa:hover {
+            background-color: var(--blue-lm);
+            color: white;
+        }
+        .sector-item.active .sector-content { max-height: 1000px; }
+        .sector-item.active .sector-icon { transform: rotate(45deg); }
+        footer { background-color: var(--dark-lm); color: #ccc; padding: 40px 5%; text-align: center; margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">LAS<span>PRESTA</span></a>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="bricolage-deco.html" style="color: var(--blue-lm);">Bricolage & Multi-services</a>
+            <a href="https://wa.me/33748203091">WhatsApp</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Nos Prestations Multi-Services</h1>
+        <p class="page-subtitle">Découvrez nos prestations précises et nos tarifs transparents à Toulouse.</p>
+
+        <div class="featured-banner">
+            <span class="featured-badge">À la une</span>
+            <h2>🔨 Spécialiste Bricolage & Petit Multiservices</h2>
+            <p>Besoin d'un dépannage, d'une installation ou d'un aménagement rapide chez vous ? Nous prenons en charge tous vos petits travaux du quotidien avec réactivité et un grand soin du détail.</p>
+            <a href="https://wa.me/33748203091" class="btn-wa" style="background-color: var(--blue-lm); color: white; margin-top: 15px;">Me confier vos projets</a>
+        </div>
+
+        <div class="sector-list">
+
+            <!-- 1. PLOMBERIE -->
+            <div class="sector-item">
+                <button class="sector-header" onclick="toggleSector(this)">
+                    <h2>Plomberie : Changer un robinet ou mitigeur</h2>
+                    <span class="sector-icon">+</span>
+                </button>
+                <div class="sector-content">
+                    <div class="sector-inner">
+                        <div class="presta-img-box">
+                            <!-- CHANGE LE NOM ICI SI BESOIN -->
+                            <img src="plomberie.jpg" alt="Plomberie">
+                        </div>
+                        <div class="presta-info">
+                            <p class="price-tag">À partir de 89,00 €</p>
+                            <div class="expectations-box">
+                                <ul>
+                                    <li>Coupure de l'arrivée d'eau générale ou locale</li>
+                                    <li>Dépose propre de l'ancien équipement</li>
+                                    <li>Nettoyage des filetages et remplacement des joints</li>
+                                    <li>Fixation, raccordement et tests de mise en eau</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/33748203091" class="btn-wa">Demander cette intervention</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FIXATIONS MURALES -->
+            <div class="sector-item">
+                <button class="sector-header" onclick="toggleSector(this)">
+                    <h2>Fixations murales (Étagères, Miroirs, TV)</h2>
+                    <span class="sector-icon">+</span>
+                </button>
+                <div class="sector-content">
+                    <div class="sector-inner">
+                        <div class="presta-img-box">
+                            <!-- CHANGE LE NOM ICI SI BESOIN -->
+                            <img src="fixations.jpg" alt="Fixations">
+                        </div>
+                        <div class="presta-info">
+                            <p class="price-tag">À partir de 49,00 €</p>
+                            <div class="expectations-box">
+                                <ul>
+                                    <li>Analyse de la nature du mur (Placo, brique, béton)</li>
+                                    <li>Traçage précis et alignement parfait au niveau à bulle</li>
+                                    <li>Perçage et choix de chevilles adaptées</li>
+                                    <li>Ancrage solide de vos miroirs, étagères ou TV</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/33748203091" class="btn-wa">Demander cette intervention</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. CUISINE -->
+            <div class="sector-item">
+                <button class="sector-header" onclick="toggleSector(this)">
+                    <h2>Montage & Aménagement de cuisine</h2>
+                    <span class="sector-icon">+</span>
+                </button>
+                <div class="sector-content">
+                    <div class="sector-inner">
+                        <div class="presta-img-box">
+                            <!-- CHANGE LE NOM ICI SI BESOIN -->
+                            <img src="cuisine.jpg" alt="Cuisine">
+                        </div>
+                        <div class="presta-info">
+                            <p class="price-tag">À partir de 69,00 €</p>
+                            <div class="expectations-box">
+                                <ul>
+                                    <li>Assemblage robuste des structures et caissons en kit</li>
+                                    <li>Fixation et alignement des rails de tiroirs</li>
+                                    <li>Ajustement des façades de portes et des poignées</li>
+                                    <li>Mise à niveau parfaite pour garantir la stabilité</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/33748203091" class="btn-wa">Demander cette intervention</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>LASPRESTA</strong> – Votre habitat entre de bonnes mains à Toulouse</p>
+        <p>📞 Contact direct & WhatsApp : 07 48 20 30 91</p>
+    </footer>
+
+    <script>
+        function toggleSector(button) {
+            const item = button.parentElement;
+            document.querySelectorAll('.sector-item').forEach(el => {
+                if (el !== item) el.classList.remove('active');
+            });
+            item.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
